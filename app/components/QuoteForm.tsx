@@ -1,29 +1,27 @@
+"use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-interface QuoteFormProps {
-  onSubmit: (text: string, author: string) => void;
-  initialText?: string;
-  initialAuthor?: string;
-  submitLabel?: string;
-}
+export default function QuoteForm() {
+  const [text, setText] = useState("");
+  const [author, setAuthor] = useState("");
+  const router = useRouter();
 
-export default function QuoteForm({
-  onSubmit,
-  initialText = "",
-  initialAuthor = "",
-  submitLabel = "Submit Quote",
-}: QuoteFormProps) {
-  const [text, setText] = useState(initialText);
-  const [author, setAuthor] = useState(initialAuthor);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim() || !author.trim()) {
       alert("Both fields are required.");
       return;
     }
-    onSubmit(text.trim(), author.trim());
+
+    await fetch("/api/quotes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, author }),
+    });
+
+    router.push("/");
   };
 
   return (
@@ -42,9 +40,9 @@ export default function QuoteForm({
       />
       <button
         type="submit"
-        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+        className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
       >
-        {submitLabel}
+        Add Quote
       </button>
     </form>
   );

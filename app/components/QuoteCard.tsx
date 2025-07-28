@@ -1,11 +1,13 @@
-import { Quote } from "../types/quote";
+
+"use client";
+
+import { Quote } from "@/app/types/quote";
 
 export default function QuoteCard({ quote }: { quote: Quote }) {
-    return (
-        <div className="border rounded-md p-4 shadow-sm hover:shadow-lg transition">
-
-            <p className="text-lg font-semibold mb-2">'{quote.text}'</p>
-            <p className="text-sm text-gray-500 text-right">-{quote.author}</p>
-        </div>
-    );
+  return (
+    <div className="border rounded p-4 shadow">
+      <p className="text-lg">{quote.text}</p>
+      <p className="text-sm text-right mt-2 text-gray-600">— {quote.author}</p>
+    </div>
+  );
 }
