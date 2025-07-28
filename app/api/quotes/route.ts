@@ -9,8 +9,9 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const { text, author } = await req.json();
+
   if (!text || !author) {
-    return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+    return NextResponse.json({ message: "Both fields are required." }, { status: 400 });
   }
 
   const newQuote = await saveQuote({ text, author });
