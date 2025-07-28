@@ -1,4 +1,3 @@
-
 import { useRouter } from "next/router";
 import QuoteForm from "@/app/components/QuoteForm";
 
@@ -13,16 +12,11 @@ export default function NewQuotePage() {
     });
 
     if (res.ok) {
-      router.push("/"); 
+      router.push("/");
     } else {
-      alert("خطا در ذخیره‌سازی جمله");
+      alert("Failed to submit quote.");
     }
   };
 
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Add New Quote</h1>
-      <QuoteForm onSubmit={handleSubmit} />
-    </div>
-  );
+  return <QuoteForm onSubmit={handleSubmit} submitLabel="Add Quote" />;
 }
